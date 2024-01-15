@@ -1,0 +1,4 @@
+.vscode/settings.json
+bin/ctof
+bin/ftoc
+bin/ftoc_reverse
