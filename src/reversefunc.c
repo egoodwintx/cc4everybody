@@ -15,6 +15,7 @@
 #define MAXLINE 1000
 
 void copy(char s1[], char s2[]);
+
 void reverse(char s1[]);
 
 int main() {
@@ -22,26 +23,42 @@ int main() {
 
     copy("Hello World!", t);
     printf("%s\n", t);
-    //reverse(*t);
-    //printf("%s\n", t[strlen(t)]);
+    reverse(t);
+    printf("%s\n", t);
 }
 
 void copy(s1, s2)
 char s1[], s2[];
 {
-    int i;
-    for (i=0; (s2[i] = s1[i]); i++)
-    
+    int i = 0;
+
+    while (s1[i] != '\0'){
+        //printf("%c %d\n", s1[i], i);
+        s2[i] = s1[i];
+        //printf("%c %c %d\n", s1[i], s2[i], i);
+        ++i;
+    }
     return;
 }
 
 
-void reverse(char t[]) {
-    char r[1000];
-    int j = strlen(t); //reverse index
-    //printf("%d\n", j);
-    for(int i=0; i < strlen(t); i++){
-        t[i] = r[j--];
+void reverse(char s1[]) {
+
+    char r[MAXLINE];
+    int strlength = 0;
+    int i = 0;
+    
+    while (s1[strlength] != '\0') {
+        ++strlength;
     }
+    printf("%d\n", strlength);
+    
+    int j = strlength - 1;
+    for(int i=0; i < strlength; i++){
+         s1[i] = r[j];
+         i++;
+         j--; 
+    }
+    s1 = r;
     return;
 }
