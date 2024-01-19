@@ -22,9 +22,9 @@ int main() {
     char t[MAXLINE];
 
     copy("Hello World!", t);
-    printf("%s\n", t);
+    printf("Original: %s\n", t);
     reverse(t);
-    printf("%s\n", t);
+    printf("Reversed: %s\n", t);
 }
 
 void copy(s1, s2)
@@ -36,8 +36,10 @@ char s1[], s2[];
         //printf("%c %d\n", s1[i], i);
         s2[i] = s1[i];
         //printf("%c %c %d\n", s1[i], s2[i], i);
-        ++i;
+        i++;
     }
+    s2[i] = '\0';
+    
     return;
 }
 
@@ -51,14 +53,23 @@ void reverse(char s1[]) {
     while (s1[strlength] != '\0') {
         ++strlength;
     }
-    printf("%d\n", strlength);
+    //strlength +=;
     
-    int j = strlength - 1;
-    for(int i=0; i < strlength; i++){
-         s1[i] = r[j];
-         i++;
+    // printf("%d\n", strlength);
+
+    // reverse read into r char array
+    int j = strlength -1;
+    for (int i=0; i < strlength; i++){
+         r[i] = s1[j];
          j--; 
     }
-    s1 = r;
+    r[strlength] = '\0';
+
+    // read r in to s1
+    for (int i=0; i <strlength; i++) {
+      s1[i] = r[i];
+      //      printf("%c %c\n", s1[i], r[i]);
+    }
+    
     return;
 }
