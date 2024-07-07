@@ -1,5 +1,5 @@
 //---------------------------------------------------------
-// file: hello.c
+// file: ex1_1.c (hello world)
 // project: Learning C
 // author: Ed Goodwin
 // date: 01.14.2024
