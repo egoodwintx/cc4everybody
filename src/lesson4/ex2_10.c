@@ -1,5 +1,5 @@
 //---------------------------------------------------------
-// file: lower_c.c
+// file: ex2_10.c
 // project: Learning C
 // author: Ed Goodwin
 // date: 01.20.2024

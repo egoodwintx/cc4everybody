@@ -1,5 +1,5 @@
 //---------------------------------------------------------
-// file: htoi_func.c
+// file: ex2_2.c
 // project: Learning C
 // author: Ed Goodwin
 // date: 01.19.2024
