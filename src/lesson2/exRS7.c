@@ -8,6 +8,7 @@
 //---------------------------------------------------------
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main (void) {
     size_t len = 1000;
@@ -17,14 +18,16 @@ int main (void) {
     int i = 1;
     
 
-    while (scanf("%d", &i) != EOF) {
-       if (maxval == NULL || i > maxval){
-           maxval = i;
-       }
-       if (minval == NULL || i < minval){
-            minval = i;    
-       }
+    while (gets(&line) != EOF) {
+        i = atoi(line);
+        if (maxval == NULL || i > maxval){
+            maxval = i;
+        }
+        if (minval == NULL || i < minval){
+                minval = i;    
+        }
     }
+    
     printf("Maximum %d\n", maxval);
     printf("Minimum %d\n", minval);
 }
