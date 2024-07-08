@@ -39,3 +39,7 @@ void reverse(char s1[]) {
     
     return;
 }
+
+int main() {
+  printf("Need to define main().\n");
+}

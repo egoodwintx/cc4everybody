@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-main() {
+int main() {
     int c = 0;
   	int prevc = 0;
     while ((c = getchar()) != EOF) {

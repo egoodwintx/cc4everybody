@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-main() {
+int main() {
     int c;
     while ((c = getchar()) != EOF) {
         if (c == ' '){

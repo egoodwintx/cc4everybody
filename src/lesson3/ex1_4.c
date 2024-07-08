@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-main() /* Fahrenheit-Celsius table */
+int main() /* Fahrenheit-Celsius table */
 {
     int cel;
     float fahr = 0.0;

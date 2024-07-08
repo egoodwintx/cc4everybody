@@ -14,6 +14,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+void gets(char* a) {
+    //return 1;
+}
+
 int main(void) {
     
     int size = 100; 
