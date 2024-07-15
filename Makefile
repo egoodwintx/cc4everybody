@@ -59,7 +59,10 @@ lesson7:
 	gcc -o ./bin/LBS290_15 ./src/lesson7/LBS290_15.c
 	
 lesson8:
-
+	gcc -o ./bin/autograder6_0 ./src/lesson8/autograder6_0.c
+	gcc -o ./bin/autograder6_A ./src/lesson8/autograder6_A.c
+	gcc -o ./bin/autograder6_B ./src/lesson8/autograder6_B.c
+		
 clean:
 	echo "Cleaning up ./bin/"
 	rm -rf ./bin/*
