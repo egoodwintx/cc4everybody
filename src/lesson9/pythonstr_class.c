@@ -10,31 +10,43 @@
 #include <stdlib.h>
 
 
-/* x = x + 'h'; */
-
-void pystr_append(struct pystr* self, char ch) {
-    /* Need about 10 lines of code here */
-}
-
-/* x = x + "hello"; */
-
-void pystr_appends(struct pystr* self, char *str) {
-    /* Need a line or two of code here */
-}
-
-/* x = "hello"; */
-
-void pystr_assign(struct pystr* self, char *str) {
-    /* Need about three lines of code here */
-}
-
-
 struct pystr
 {
     int length;
     int alloc; /* the length of *data */
     char *data;
 };
+
+/* x = x + 'h'; */
+
+void pystr_append(struct pystr* self, char ch) {
+    /*  initial alloc is 10 characters long.
+        if string is longer than 10 characters
+        call realloc and increase size of char[] */
+    if (self->length >= (self->alloc - 2)) {
+        self->alloc = self->alloc + 10;
+        self->data = (char*) realloc(self->data, self->alloc);
+    }
+    self->data[self->length] = ch;
+    self->length = (self->length) + 1;
+    
+}
+
+/* x = x + "hello"; */
+
+void pystr_appends(struct pystr* self, char *str) {
+    /* Need a line or two of code here */
+    for (int i=0; str[i] != '\0'; i++) {
+        pystr_append(self, str[i]);
+    }
+}
+/* x = "hello"; */
+
+void pystr_assign(struct pystr* self, char *str) {
+    /* Need about three lines of code here */
+    self->length=0;
+    pystr_appends(self, str);
+}
 
 /* Constructor - x = str() */
 struct pystr * pystr_new() {
@@ -73,7 +85,7 @@ int main(void)
 {
     setvbuf(stdout, NULL, _IONBF, 0);  /* Internal */
 
-    struct pystr * x = pystr_new();
+    struct pystr* x = pystr_new();
     pystr_dump(x);
 
     pystr_append(x, 'H');
