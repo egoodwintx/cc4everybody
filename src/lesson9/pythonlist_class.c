@@ -24,15 +24,25 @@ struct pylist {
 /* print(lst) */
 void pylist_print(struct pylist* self)
 {
+    printf("List count: %d\n", self->count);
     struct lnode *cur, *next;
-    cur = self->head;
-    printf("[%s", cur->text);
-    cur = cur->next;
-    while(cur) {
-        printf(",'%s'", cur->text);
-        cur = cur->next;
+    int i = 0;
+    if(self->head != NULL) {
+        cur = self->head;
+        printf("[%s", cur->text);
+
+        // for (i; i < self->count; i++) {
+        //     if (cur->next != NULL){
+        //         printf(",'%s'", cur->text);
+        //         cur = cur->next;
+        //     }
+        // }
+    }
+    else {
+        printf("[");
     }
     printf("]\n");
+
     /* About 10 lines of code 
        The output should match Python's
        list output
@@ -43,7 +53,6 @@ void pylist_print(struct pylist* self)
 	concatenation since this is C, not Python.
     */
 }
-
 /* len(lst) */
 int pylist_len(const struct pylist* self)
 {
@@ -55,11 +64,19 @@ int pylist_len(const struct pylist* self)
 void pylist_append(struct pylist* self, char *str) {
     /* Review: Chapter 6 lectures and assignments */
     struct lnode* newtail = malloc(sizeof(*newtail));
+    
     newtail->next = NULL;
     newtail->text = str;
 
-    (self->tail)->next = newtail;
+    if (self->head == NULL) {
+        self->head = newtail;
+        self->count++;
 
+    }
+    if (self->tail != NULL) {
+        self->tail->next = newtail;
+        self->tail = newtail;
+    }
 }
 /* lst.index("Hello world") - if not found -1 */
 int pylist_index(struct pylist* self, char *str)
@@ -94,9 +111,11 @@ void pylist_del(struct pylist* self) {
     cur = self->head;
     while(cur) {
         free(cur->text);
-        next = cur->next;
-        free(cur);
-        cur = next;
+        if (cur->next != NULL) {
+            next = cur->next;
+            free(cur);
+            cur = next;
+        }
     }
     free((void *)self);
 }
