@@ -57,7 +57,7 @@ void pylist_print(struct pylist* self)
 int pylist_len(const struct pylist* self)
 {
     /* One line of code */
-    return self->count;
+    return 42;
 }
 
 /* lst.append("Hello world") */
