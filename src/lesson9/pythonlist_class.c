@@ -66,17 +66,17 @@ void pylist_append(struct pylist* self, char *str) {
     struct lnode* newtail = malloc(sizeof(*newtail));
     
     newtail->next = NULL;
-    newtail->text = str;
+    newtail->text = (char*)malloc(strlen(str) * sizeof(char));
+    strncpy(newtail->text, str, (int)strlen(str));
 
     if (self->head == NULL) {
         self->head = newtail;
-        self->count++;
-
     }
     if (self->tail != NULL) {
         self->tail->next = newtail;
-        self->tail = newtail;
     }
+    self->tail = newtail;
+    self->count++;
 }
 /* lst.index("Hello world") - if not found -1 */
 int pylist_index(struct pylist* self, char *str)
@@ -110,12 +110,14 @@ void pylist_del(struct pylist* self) {
     struct lnode *cur, *next;
     cur = self->head;
     while(cur) {
-        free(cur->text);
-        if (cur->next != NULL) {
-            next = cur->next;
-            free(cur);
-            cur = next;
-        }
+      free(cur->text);
+      if (cur->next != NULL) {
+	//printf("In the delete and cur->next exists\n");
+    	next = cur->next;
+    	free(cur);
+    	cur = next;
+      }
+      
     }
     free((void *)self);
 }
@@ -127,6 +129,7 @@ int main(void)
     struct pylist * lst = pylist_new();
     pylist_append(lst, "Hello world");
     pylist_print(lst);
+    printf("%s\n", lst->head->text);
     // pylist_append(lst, "Catch phrase");
     // pylist_print(lst);
     // pylist_append(lst, "Brian");
