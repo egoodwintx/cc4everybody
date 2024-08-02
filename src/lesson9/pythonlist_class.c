@@ -29,14 +29,14 @@ void pylist_print(struct pylist* self)
     int i = 0;
     if(self->head != NULL) {
         cur = self->head;
-        printf("[%s", cur->text);
+        printf("['%s'", cur->text);
 
-        // for (i; i < self->count; i++) {
-        //     if (cur->next != NULL){
-        //         printf(",'%s'", cur->text);
-        //         cur = cur->next;
-        //     }
-        // }
+        for (i=0; i < self->count; i++) {
+             if (cur->next != NULL){
+	       cur = cur->next;
+	       printf(",'%s'", cur->text);
+             }
+        }
     }
     else {
         printf("[");
@@ -129,13 +129,12 @@ int main(void)
     struct pylist * lst = pylist_new();
     pylist_append(lst, "Hello world");
     pylist_print(lst);
-    printf("%s\n", lst->head->text);
-    // pylist_append(lst, "Catch phrase");
-    // pylist_print(lst);
-    // pylist_append(lst, "Brian");
-    // pylist_print(lst);
-    // printf("Length = %d\n", pylist_len(lst));
-    // printf("Brian? %d\n", pylist_index(lst, "Brian"));
-    // printf("Bob? %d\n", pylist_index(lst, "Bob"));
+    pylist_append(lst, "Catch phrase");
+    pylist_print(lst);
+    pylist_append(lst, "Brian");
+    pylist_print(lst);
+    printf("Length = %d\n", pylist_len(lst));
+    printf("Brian? %d\n", pylist_index(lst, "Brian"));
+    printf("Bob? %d\n", pylist_index(lst, "Bob"));
     pylist_del(lst);
 }
