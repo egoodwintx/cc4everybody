@@ -24,7 +24,7 @@ struct pylist {
 /* print(lst) */
 void pylist_print(struct pylist* self)
 {
-    printf("List count: %d\n", self->count);
+  //    printf("List count: %d\n", self->count);
     struct lnode *cur, *next;
     int i = 0;
     if(self->head != NULL) {
@@ -34,7 +34,7 @@ void pylist_print(struct pylist* self)
         for (i=0; i < self->count; i++) {
              if (cur->next != NULL){
 	       cur = cur->next;
-	       printf(",'%s'", cur->text);
+	       printf(", '%s'", cur->text);
              }
         }
     }
@@ -84,13 +84,13 @@ int pylist_index(struct pylist* self, char *str)
     struct lnode* cur = self->head;
     int counter = 0;
     while (cur) {
-        counter++;
         if (strcmp(cur->text, str) == 0) {
             return counter;
         }
         else {
             cur = cur->next;
         }
+        counter++;
     }
     /* Seven or so lines of code */
     return -1;
