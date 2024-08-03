@@ -136,5 +136,5 @@ int main(void)
     printf("Length = %d\n", pylist_len(lst));
     printf("Brian? %d\n", pylist_index(lst, "Brian"));
     printf("Bob? %d\n", pylist_index(lst, "Bob"));
-    //    pylist_del(lst);
+    pylist_del(lst);
 }
