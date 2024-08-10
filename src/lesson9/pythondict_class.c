@@ -10,15 +10,47 @@
 #include <stdlib.h>
 #include <string.h>
 
+// dictionary node
+struct dnode {
+    char *key;
+    char *value;
+    struct dnode *next;
+};
+
+// dictionary
+struct pydict {
+  struct dnode *head;
+  struct dnode *tail;
+  int count;
+};
+
 /* print(dct) */
 /* {'z': 'W', 'y': 'B', 'c': 'C', 'a': 'D'} */
 void pydict_print(struct pydict* self)
 {
+  struct dnode* cur;
+  int count = 0;
+ 
+  printf("{");
+  if (self->head != NULL) {
+    cur = self->head;
+    printf("'%s':'%s'", cur->key, cur->value);
+    count++;
+  
+    while (count < self->count) {
+      if (cur->next != NULL) {
+	cur = cur->next;
+	count++;
+	printf(", '%s': '%s'", cur->key, cur->value);
+      }
+    }
+  }
+  printf("}\n");
 }
 
 int pydict_len(const struct pydict* self)
 {
-    return 42;
+    return self->count;
 }
 
 /* find a node - used in get and put */
@@ -36,19 +68,22 @@ char* pydict_get(struct pydict* self, char *key)
 /* x[key] = value; Insert or replace the value associated with a key */
 void pydict_put(struct pydict* self, char *key, char *value)
 {
+  struct dnode* newnode = malloc(sizeof(struct dnode*));
+
+  newnode->key = key;
+  newnode->value = value;
+  if (self->head == NULL){
+    self->head = newnode;
+    self->tail = newnode;
+
+  }
+  if (self->tail != NULL) {
+    (self->tail)->next = newnode;
+  }    
+  self->tail = newnode;
+  self->count++;
 }
 
-struct dnode {
-    char *key;
-    char *value;
-    struct dnode *next;
-};
-
-struct pydict {
-  struct dnode *head;
-  struct dnode *tail;
-  int count;
-};
 
 /* Constructor - dct = dict() */
 struct pydict * pydict_new() {
