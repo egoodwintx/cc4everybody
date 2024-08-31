@@ -62,24 +62,22 @@ struct dnode* pydict_find(struct pydict* self, char *key)
 /* x.get(key) - Returns NULL if not found */
 char* pydict_get(struct pydict* self, char *key)
 {
-    int nodecount = 0;
-    char* nones = "(null)";
-    struct dnode* curnode = self->head;
+  int nodecount = 0;
+  char* nones = "(null)";
+  struct dnode* curnode = self->head;
 
-    if (self->head != NULL) {
-      while (nodecount < (self->count -1)) {
-        if (strcmp(key, curnode->key) == 0) {
-          return curnode->value;
-        }
-        else {
-          curnode = curnode->next;
-        }
+  if (self->head != NULL) {
+    while (nodecount < (self->count - 1)) {
+      if (strcmp(key, curnode->key) == 0) {
+        return curnode->value;
       }
-      return curnode->value;
+      else {
+        nodecount++;
+        curnode = curnode->next;
+      }
     }
-    else {
-      return nones;  
-    }
+  }
+  return nones;  
 } 
 
 /* x[key] = value; Insert or replace the value associated with a key */
