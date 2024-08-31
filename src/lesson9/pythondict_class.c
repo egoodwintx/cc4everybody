@@ -114,8 +114,6 @@ void pydict_del(struct pydict* self) {
     struct dnode *cur, *next;
     cur = self->head;
     while(cur) {
-        free(cur->key);
-        free(cur->value);
         next = cur->next;
         free(cur);
         cur = next;
