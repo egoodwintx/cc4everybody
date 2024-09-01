@@ -68,6 +68,9 @@ lesson9:
 	gcc -o ./bin/pythonlist ./src/lesson9/pythonlist_class.c
 	gcc -o ./bin/pythondict ./src/lesson9/pythondict_class.c
 
+lesson10:
+	gcc -o ./bin/pythondict_oop ./src/lesson10/pythondict_class.c
+	gcc -o ./bin/iterator ./src/lesson10/iterator.c
 
 clean:
 	echo "Cleaning up ./bin/"
