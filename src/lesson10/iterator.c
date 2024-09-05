@@ -90,6 +90,66 @@ int __Map_size(struct Map* self)
 
 /* Student code will be inserted here */
 
+
+void __Map_put(struct Map* self, char *key, int value) {
+    struct MapEntry *old, *new;
+    char *new_key;
+    if ( key == NULL ) return;
+
+    old = __Map_find(self, key);
+    if ( old != NULL ) {
+        old->value = value;
+        return;
+    }
+
+    new = malloc(sizeof(*new));
+
+    /* Link new to the tail of the list */
+    new->key = key;
+    new->value = value;
+    new->__prev = old;
+    new->__next = NULL;
+    self->__tail = new;
+    self->__count++;
+}
+
+struct MapEntry* __MapIter_next(struct MapIter* self)
+{
+    /* Advance the iterator */
+    struct MapEntry * retval = self->__current;
+
+    if ( retval == NULL) return NULL;
+    self->__current = self->__current->__next;
+    return retval;
+}
+
+struct MapIter* __Map_iter(struct Map* self)
+{
+    struct MapIter *iter = malloc(sizeof(*iter));
+    /* TODO: fill in the new iterator */
+    iter->__current = self->__head;
+    iter->next = &__MapIter_next;
+    iter->del = &__MapIter_del;
+
+
+
+    return iter;
+}
+
+struct Map * Map_new() {
+    struct Map *p = malloc(sizeof(*p));
+
+    p->__head = NULL;
+    p->__tail = NULL;
+    p->__count = 0;
+    p->put = &__Map_put;
+    p->get = &__Map_get;
+    p->size = &__Map_size;
+    p->dump = &__Map_dump;
+    p->del = &__Map_del;
+    return p;
+}
+
 int main(void)
 {
     struct Map * map = Map_new();
@@ -122,49 +182,4 @@ int main(void)
     iter->del(iter);
 
     map->del(map);
-}
-
-void __Map_put(struct Map* self, char *key, int value) {
-    struct MapEntry *old, *new;
-    char *new_key;
-    if ( key == NULL ) return;
-
-    old = __Map_find(self, key);
-    if ( old != NULL ) {
-        old->value = value;
-        return;
-    }
-
-    new = malloc(sizeof(*new));
-
-    /* TODO: Link new to the tail of the list */
-
-    self->__count++;
-}
-
-struct MapEntry* __MapIter_next(struct MapIter* self)
-{
-    /* TODO: Advance the iterator */
-    return NULL;
-}
-
-struct MapIter* __Map_iter(struct Map* self)
-{
-    struct MapIter *iter = malloc(sizeof(*iter));
-    /* TODO: fill in the new iterator */
-    return iter;
-}
-
-struct Map * Map_new() {
-    struct Map *p = malloc(sizeof(*p));
-
-    p->__head = NULL;
-    p->__tail = NULL;
-    p->__count = 0;
-    p->put = &__Map_put;
-    p->get = &__Map_get;
-    p->size = &__Map_size;
-    p->dump = &__Map_dump;
-    p->del = &__Map_del;
-    return p;
 }
