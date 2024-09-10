@@ -69,9 +69,18 @@ void __Map_dump(struct Map* self)
 struct MapEntry* __Map_find(struct Map* self, char *key)
 {
     struct MapEntry *cur;
-    if ( self == NULL || key == NULL ) return NULL;
+    printf("In if stmt %s\n", key);
+    printf("%s\n", self->__head->key);
+    printf("%s\n", key);
+    if ( self == NULL || key == NULL ) {
+        printf("returning null...\n");
+        return NULL;
+    }
     for(cur = self->__head; cur != NULL ; cur = cur->__next ) {
-        if(strcmp(key, cur->key) == 0 ) return cur;
+        printf("In find() %s %d\n", cur->key, cur->value);
+        if(strcmp(key, cur->key) == 0 ) {
+            return cur;
+        }       
     }
     return NULL;
 }
@@ -79,7 +88,9 @@ struct MapEntry* __Map_find(struct Map* self, char *key)
 int __Map_get(struct Map* self, char *key, int def)
 {
     struct MapEntry *retval = __Map_find(self, key);
-    if ( retval == NULL ) return def;
+    if ( retval == NULL ) {
+        return def;
+    }
     return retval->value;
 }
 
@@ -94,14 +105,17 @@ int __Map_size(struct Map* self)
 void __Map_put(struct Map* self, char *key, int value) {
     struct MapEntry *old, *new;
     char *new_key;
-    if ( key == NULL ) return;
+    if ( key == NULL ) return; // no new value to add
 
+    // key exists
     old = __Map_find(self, key);
+    
     if ( old != NULL ) {
         old->value = value;
         return;
     }
 
+    // key does not exist
     new = malloc(sizeof(*new));
 
     /* Link new to the tail of the list */
@@ -110,7 +124,10 @@ void __Map_put(struct Map* self, char *key, int value) {
     new->__prev = old;
     new->__next = NULL;
     self->__tail = new;
+
     self->__count++;
+    printf("key %s value %d count %d\n", key, value, self->__count);
+    return;
 }
 
 struct MapEntry* __MapIter_next(struct MapIter* self)
