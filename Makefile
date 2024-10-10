@@ -21,9 +21,9 @@ lesson2:
 	$(CC) -o ./bin/exRS4 ./src/lesson2/exRS4.c
 	$(CC) -o ./bin/exRS5 ./src/lesson2/exRS5.c
 	$(CC) -o ./bin/exRS6 ./src/lesson2/exRS6.c
-	#$(CC) -o ./bin/exRS7 ./src/lesson2/exRS7.c
-	#$(CC) -o ./bin/exRS8 ./src/lesson2/exRS8.c
-	#$(CC) -o ./bin/exRS9 ./src/lesson2/exRS9.c
+#	$(CC) -o ./bin/exRS7 ./src/lesson2/exRS7.c
+#	$(CC) -o ./bin/exRS8 ./src/lesson2/exRS8.c
+#	$(CC) -o ./bin/exRS9 ./src/lesson2/exRS9.c
 
 lesson3:
 	$(CC) -o ./bin/ex1_1 ./src/lesson3/ex1_1.c
