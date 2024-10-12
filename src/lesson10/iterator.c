@@ -195,13 +195,13 @@ int main(void)
     printf("x=%d\n", map->get(map, "x", 42));
 
     printf("\nIterate\n");
-    iter = map->iter(map);
-    while(1) {
-        cur = iter->next(iter);
-        if ( cur == NULL ) break;
-	printf("%s=%d\n", cur->key, cur->value);
-    }
-    iter->del(iter);
+    // iter = map->iter(map);
+    // while(1) {
+    //     cur = iter->next(iter);
+    //     if ( cur == NULL ) break;
+	// printf("%s=%d\n", cur->key, cur->value);
+    // }
+    // iter->del(iter);
 
     map->del(map);
 }
