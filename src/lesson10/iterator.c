@@ -69,13 +69,17 @@ void __Map_dump(struct Map* self)
 struct MapEntry* __Map_find(struct Map* self, char *key)
 {
     struct MapEntry *cur;
-    printf("In if stmt %s\n", key);
-    printf("%s\n", self->__head->key);
-    printf("%s\n", key);
-    if ( self == NULL || key == NULL ) {
-        printf("returning null...\n");
+    // printf("In if stmt %s\n", key);
+    
+    if ( self->__head == NULL || key == NULL ) {
+    //    printf("returning null...\n");
         return NULL;
     }
+    else {
+    //     printf("%s\n", self->__head->key);
+    //     printf("%s\n", key);
+    }
+
     for(cur = self->__head; cur != NULL ; cur = cur->__next ) {
         printf("In find() %s %d\n", cur->key, cur->value);
         if(strcmp(key, cur->key) == 0 ) {
@@ -105,6 +109,7 @@ int __Map_size(struct Map* self)
 void __Map_put(struct Map* self, char *key, int value) {
     struct MapEntry *old, *new;
     char *new_key;
+    
     if ( key == NULL ) return; // no new value to add
 
     // key exists
