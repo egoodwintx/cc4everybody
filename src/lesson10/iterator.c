@@ -21,6 +21,7 @@ struct MapEntry {
 struct MapIter {
    struct MapEntry *__current;
 
+   /* Methods */
    struct MapEntry* (*next)(struct MapIter* self);
    void (*del)(struct MapIter* self);
 };
@@ -44,7 +45,7 @@ void __Map_del(struct Map* self) {
     struct MapEntry *cur, *next;
     cur = self->__head;
     while(cur) {
-        free(cur->key);
+        //free(cur->key);
         /* value is just part of the struct */
         next = cur->__next;
         free(cur);
@@ -60,8 +61,8 @@ void __MapIter_del(struct MapIter* self) {
 void __Map_dump(struct Map* self)
 {
     struct MapEntry *cur;
-    printf("Object Map count=%d\n", self->__count);
-    for(cur = self->__head; cur != NULL ; cur = cur->__next ) {
+    //printf("Object Map count=%d\n", self->__count);
+    for(cur = self->__head; cur != NULL; cur = cur->__next ) {
          printf("  %s=%d\n", cur->key, cur->value);
     }
 }
@@ -81,7 +82,7 @@ struct MapEntry* __Map_find(struct Map* self, char *key)
     }
 
     for(cur = self->__head; cur != NULL ; cur = cur->__next ) {
-        printf("In find() %s %d\n", cur->key, cur->value);
+       //printf("In find() %s %d\n", cur->key, cur->value);
         if(strcmp(key, cur->key) == 0 ) {
             return cur;
         }       
@@ -112,34 +113,41 @@ void __Map_put(struct Map* self, char *key, int value) {
     
     if ( key == NULL ) return; // no new value to add
 
-    // key exists
+    // key exists, so just update value
     old = __Map_find(self, key);
-    
     if ( old != NULL ) {
         old->value = value;
         return;
     }
 
-    // key does not exist
+    // key does not exist, need to create new Entry
     new = malloc(sizeof(*new));
 
-    /* Link new to the tail of the list */
+    // set key and value for new
     new->key = key;
     new->value = value;
-    new->__prev = old;
-    new->__next = NULL;
-    self->__tail = new;
 
+    // does __head exist? If no, set __head to new
+    if (self->__head != NULL) {
+        new->__prev = self->__tail;
+        self->__tail->__next = new;
+        new->__next = NULL;
+        self->__tail = new;
+    }
+    else {
+        self->__head = new;
+        self->__tail = new;
+        new->__next = NULL;
+    }
     self->__count++;
-    printf("key %s value %d count %d\n", key, value, self->__count);
+    //printf("key %s value %d count %d\n", key, value, self->__count);
     return;
 }
 
 struct MapEntry* __MapIter_next(struct MapIter* self)
 {
     /* Advance the iterator */
-    struct MapEntry * retval = self->__current;
-
+    struct MapEntry *retval = self->__current;
     if ( retval == NULL) return NULL;
     self->__current = self->__current->__next;
     return retval;
@@ -148,13 +156,10 @@ struct MapEntry* __MapIter_next(struct MapIter* self)
 struct MapIter* __Map_iter(struct Map* self)
 {
     struct MapIter *iter = malloc(sizeof(*iter));
-    /* TODO: fill in the new iterator */
+
     iter->__current = self->__head;
     iter->next = &__MapIter_next;
     iter->del = &__MapIter_del;
-
-
-
     return iter;
 }
 
@@ -169,6 +174,7 @@ struct Map * Map_new() {
     p->size = &__Map_size;
     p->dump = &__Map_dump;
     p->del = &__Map_del;
+    p->iter = &__Map_iter;
     return p;
 }
 
@@ -191,17 +197,17 @@ int main(void)
 
     printf("size=%d\n", map->size(map));
 
-    printf("z=%d\n", map->get(map, "z", 42));
+    printf("\nz=%d\n", map->get(map, "z", 42));
     printf("x=%d\n", map->get(map, "x", 42));
 
     printf("\nIterate\n");
-    // iter = map->iter(map);
-    // while(1) {
-    //     cur = iter->next(iter);
-    //     if ( cur == NULL ) break;
-	// printf("%s=%d\n", cur->key, cur->value);
-    // }
-    // iter->del(iter);
+    iter = map->iter(map);
 
+    while(1) {
+        cur = iter->next(iter);
+        if ( cur == NULL ) break;
+	    printf("%s=%d\n", cur->key, cur->value);
+    }
+    iter->del(iter);    
     map->del(map);
 }
