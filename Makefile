@@ -72,11 +72,11 @@ lesson8:
 lesson9:
 	$(CC) -o ./bin/pythonstr ./src/lesson9/pythonstr_class.c
 	$(CC) -o ./bin/pythonlist ./src/lesson9/pythonlist_class.c
-	$(CC) -o ./bin/pythondict ./src/lesson9/pythondict_class.c
+	$(CC) -o ./bin/pythondict ./src/lesson9/pytabout:blank#blockedhondict_class.c
 
 lesson10:
 	$(CC) -o ./bin/pythondict_oop ./src/lesson10/pythondict_class.c
-	$(CC) -o ./bin/iterator ./src/lesson10/iterator.c
+	$(CC) -g -o ./bin/iterator ./src/lesson10/iterator.c
 
 clean:
 	echo "Cleaning up ./bin/"
