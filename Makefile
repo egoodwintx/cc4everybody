@@ -7,7 +7,7 @@ all:
 	make lesson1 lesson2 lesson3
 	make lesson4 lesson5 lesson6
 	make lesson7 lesson8 lesson9
-	make lesson10
+	make lesson10 lesson11
 
 lesson1:
 	echo "No source code in lesson 1"
@@ -78,6 +78,10 @@ lesson10:
 	$(CC) -g -o ./bin/pythondict_oop ./src/lesson10/pythondict_class.c
 	$(CC) -g -g -o ./bin/iterator ./src/lesson10/iterator.c
 
+lesson11:
+	$(CC) -g -o ./bin/hashmap ./src/lesson11/hashmap.c
+	$(CC) -g -o ./bin/linkedtreemap ./src/lesson11/linkedtreemap.c
+	
 clean:
 	echo "Cleaning up ./bin/"
 	rm -rf ./bin/*

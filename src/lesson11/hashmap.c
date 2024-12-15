@@ -87,6 +87,12 @@ void __HashMap_dump(struct HashMap* self)
     }
 }
 
+struct HashMapEntry* __HashMapIter_next(struct HashMapIter* self)
+{
+    /* TODO: Add some code here */
+    return NULL;
+}
+
 struct HashMapIter* __HashMap_iter(struct HashMap* map)
 {
     struct HashMapIter *iter = malloc(sizeof(*iter));
@@ -96,27 +102,6 @@ struct HashMapIter* __HashMap_iter(struct HashMap* map)
     iter->next = &__HashMapIter_next;
     iter->del = &__HashMapIter_del;
     return iter;
-}
-
-struct HashMap * HashMap_new() {
-    struct HashMap *p = malloc(sizeof(*p));
-    int i;
-
-    p->__buckets = 8;
-    for(i=0; i < p->__buckets; i++ ) {
-        p->__heads[i] = NULL;
-        p->__tails[i] = NULL;
-    }
-
-    p->__count = 0;
-
-    p->put = &__HashMap_put;
-    p->get = &__HashMap_get;
-    p->size = &__HashMap_size;
-    p->dump = &__HashMap_dump;
-    p->iter = &__HashMap_iter;
-    p->del = &__HashMap_del;
-    return p;
 }
 
 /* studdent code here */
@@ -145,20 +130,34 @@ void __HashMap_put(struct HashMap* self, char *key, int value) {
 int __HashMap_get(struct HashMap* self, char *key, int def)
 {
     /* TODO: Add some code here */
-    return NULL;
+    return 0;
 }
 
 int __HashMap_size(struct HashMap* self)
 {
-    return 42;
+    return (int)self->__count;
 }
 
-struct HashMapEntry* __HashMapIter_next(struct HashMapIter* self)
-{
-    /* TODO: Add some code here */
-    return NULL;
-}
+struct HashMap * HashMap_new() {
+    struct HashMap *p = malloc(sizeof(*p));
+    int i;
 
+    p->__buckets = 8;
+    for(i=0; i < p->__buckets; i++ ) {
+        p->__heads[i] = NULL;
+        p->__tails[i] = NULL;
+    }
+
+    p->__count = 0;
+
+    p->put = &__HashMap_put;
+    p->get = &__HashMap_get;
+    p->size = &__HashMap_size;
+    p->dump = &__HashMap_dump;
+    p->iter = &__HashMap_iter;
+    p->del = &__HashMap_del;
+    return p;
+}
 
 int main(void)
 {
