@@ -5,6 +5,16 @@
 // date: 10.12.2024
 // description:
 //  HashMap implementation
+/*  === OUTPUT ===
+    Testing HashMap
+    Object HashMap count=4 buckets=8
+    y=2 [1]
+    a=4 [1]
+    z=1 [2]
+    b=3 [2]
+    size=4
+    z=1
+    x=42
 //---------------------------------------------------------
 
 #include <stdio.h>
@@ -79,7 +89,7 @@ void __HashMap_dump(struct HashMap* self)
 {
     int i;
     struct HashMapEntry *cur;
-    printf("Object HashHashMap count=%d buckets=%d\n", self->__count, self->__buckets);
+    printf("Object HashMap count=%d buckets=%d\n", self->__count, self->__buckets);
     for(i = 0; i < self->__buckets; i++ ) {
         for(cur = self->__heads[i]; cur != NULL ; cur = cur->__next ) {
             printf(" %s=%d [%d]\n", cur->key, cur->value, i);
