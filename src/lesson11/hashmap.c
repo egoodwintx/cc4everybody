@@ -15,7 +15,13 @@
     size=4
     z=1
     x=42
-//---------------------------------------------------------
+
+    Iterate
+    y=2
+    a=4
+    z=1
+    b=3
+ //---------------------------------------------------------
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -117,17 +123,20 @@ struct HashMapIter* __HashMap_iter(struct HashMap* map)
 /* studdent code here */
 struct HashMapEntry* __HashMap_find(struct HashMap* self, char *key, int bucket)
 {
-    /* TODO: Add some code here */
-    return NULL;
+  //HashMapIter* hmi = __HashMap_iter(self);
+  return NULL;
 }
 
 void __HashMap_put(struct HashMap* self, char *key, int value) {
     int bucket;
     struct HashMapEntry *old, *new;
     char *new_key;
+
     if ( key == NULL ) return;
+
     bucket = getBucket(key, self->__buckets);
     old = __HashMap_find(self, key, bucket);
+
     if ( old != NULL ) {
         old->value = value;
         return;
