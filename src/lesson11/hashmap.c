@@ -121,13 +121,14 @@ struct HashMapIter* __HashMap_iter(struct HashMap* map)
     return iter;
 }
 
-/* studdent code here */
+/* student code here */
 struct HashMapEntry* __HashMap_find(struct HashMap* self, char *key, int bucket)
 {
   //HashMapIter* hmi = __HashMap_iter(self);
-  return NULL;
+  return 42;
 }
 
+/* student code here */
 void __HashMap_put(struct HashMap* self, char *key, int value) {
     int bucket;
     struct HashMapEntry *old, *new;
@@ -147,17 +148,31 @@ void __HashMap_put(struct HashMap* self, char *key, int value) {
     self->__count++;
 }
 
+/* student code here */
+/* if key exists, return the value, otherwise set value to def */
 int __HashMap_get(struct HashMap* self, char *key, int def)
 {
-    /* TODO: Add some code here */
-    return 0;
+  struct HashMapEntry *entry;
+  int value, bucket = 0;
+  if (key == NULL) return;
+
+  bucket = getBucket(key, self->__buckets);
+  entry = __HashMap_find(self, key, bucket);
+
+  if (entry->value == NULL) {
+    entry->value = def;
+  }
+  
+  return entry->value;
 }
 
+/* student code here */
 int __HashMap_size(struct HashMap* self)
 {
     return (int)self->__count;
 }
 
+/* student code here */
 struct HashMap * HashMap_new() {
     struct HashMap *p = malloc(sizeof(*p));
     int i;
