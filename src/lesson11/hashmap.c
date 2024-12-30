@@ -166,13 +166,13 @@ int __HashMap_get(struct HashMap* self, char *key, int def)
   return entry->value;
 }
 
-/* student code here */
+/* return HashMap size */
 int __HashMap_size(struct HashMap* self)
 {
     return (int)self->__count;
 }
 
-/* student code here */
+/* HashMap constructor */
 struct HashMap * HashMap_new() {
     struct HashMap *p = malloc(sizeof(*p));
     int i;
