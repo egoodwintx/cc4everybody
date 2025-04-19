@@ -124,18 +124,18 @@ struct HashMapIter* __HashMap_iter(struct HashMap* map)
 /* student code here */
 struct HashMapEntry* __HashMap_find(struct HashMap* self, char *key, int bucket)
 {
-  HashMapIter* hmi = __HashMap_iter(self);
-  HashMapEntry* hme = hmi->__current;
+  struct HashMapIter *hmi = __HashMap_iter(self);
+  struct HashMapEntry *hme = hmi->__current;
   
   while (hme != NULL) {
     if (hme->key = key){
       return hme;
     }
     else {
-      hme = hmi->next;
+      hme = *hmi->next;
     }
   }
-  return ;
+  return hme;
 }
 
 /* student code here */
@@ -164,7 +164,7 @@ int __HashMap_get(struct HashMap* self, char *key, int def)
 {
   struct HashMapEntry *entry;
   int value, bucket = 0;
-  if (key == NULL) return;
+  if (key == NULL) return 0;
 
   bucket = getBucket(key, self->__buckets);
   entry = __HashMap_find(self, key, bucket);
