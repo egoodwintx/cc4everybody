@@ -98,6 +98,7 @@ void __HashMap_dump(struct HashMap* self)
     struct HashMapEntry *cur;
     printf("Object HashMap count=%d buckets=%d\n", self->__count, self->__buckets);
     for(i = 0; i < self->__buckets; i++ ) {
+        printf("i = %d\n", i);
         for(cur = self->__heads[i]; cur != NULL ; cur = cur->__next ) {
             printf(" %s=%d [%d]\n", cur->key, cur->value, i);
         }
@@ -128,7 +129,7 @@ struct HashMapEntry* __HashMap_find(struct HashMap* self, char *key, int bucket)
   struct HashMapEntry *hme = hmi->__current;
   
   while (hme != NULL) {
-    if (hme->key = key){
+    if (hme->key == key){
       return hme;
     }
     else {
@@ -222,17 +223,17 @@ int main(void)
 
     printf("size=%d\n", map->size(map));
 
-    printf("z=%d\n", map->get(map, "z", 42));
-    printf("x=%d\n", map->get(map, "x", 42));
+    // printf("z=%d\n", map->get(map, "z", 42));
+    // printf("x=%d\n", map->get(map, "x", 42));
 
-    printf("\nIterate\n");
-    iter = map->iter(map);
-    while(1) {
-        cur = iter->next(iter);
-        if ( cur == NULL ) break;
-        printf(" %s=%d\n", cur->key, cur->value);
-    }
-    iter->del(iter);
+    // printf("\nIterate\n");
+    // iter = map->iter(map);
+    // while(1) {
+    //     cur = iter->next(iter);
+    //     if ( cur == NULL ) break;
+    //     printf(" %s=%d\n", cur->key, cur->value);
+    // }
+    // iter->del(iter);
 
-    map->del(map);
+    // map->del(map);
 }
